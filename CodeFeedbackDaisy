@@ -1,0 +1,93 @@
+class Workout:
+    def __init__(self, name, correct_angles):
+        self.name = name
+        self.correct_angles = correct_angles  # Dictionary 
+        self.feedback_messages = {  # Specific angles and feedback first setup 
+            'shoulder_left': "Adjust your left shoulder angle.",
+            'shoulder_right': "Adjust your right shoulder angle.",
+            'elbow_left': "Bend your left elbow more.",
+            'elbow_right': "Bend your right elbow more.",
+            'hip_left': "Correct your left hip angle.",
+            'hip_right': "Correct your right hip angle.",
+            'knee_left': "Change left knee angle.",
+            'knee_right': "Changle right knee angle."
+        }
+
+    # compare the angles and give feedback to it
+    def check_form(self, angles):
+        feedback = []
+        for joint, correct_range in self.correct_angles.items():
+            if not correct_range[0] <= angles[joint] <= correct_range[1]:
+                feedback.append(self.feedback_messages[joint])  # add specific feedback
+        return feedback
+
+
+# Correct ranges for push-up
+push_up = Workout("Push-up", {
+    'shoulder_left': (60, 90),
+    'shoulder_right': (60, 90),
+    'elbow_left': (20, 40),
+    'elbow_right': (20, 40),
+    'hip_left': (150, 180),
+    'hip_right': (150, 180),
+    'knee_left': (160, 180),
+    'knee_right': (160, 180)
+})
+
+# Correct ranges for squat
+squat = Workout("Squat", {
+    'hip_left': (70, 100),
+    'hip_right': (70, 100),
+    'knee_left': (90, 120),
+    'knee_right': (90, 120)
+})
+
+pull_up = Workout("Pull-up", {
+    'shoulder_left': (60, 90),
+    'shoulder_right': (60, 90),
+    'elbow_left': (20, 50),
+    'elbow_right': (20, 50),
+})
+# this still needs extra insights on how to do a correct sit-up
+sit_up = Workout("Sit_up", {
+    'shoulder_left': (60, 90),
+    'shoulder_right': (60, 90),
+    'knee_left': (120, 140),
+    'knee_right': (120, 140)
+})
+
+
+# Function which checks the angles
+def give_feedback(workout, angles):
+    feedback = workout.check_form(angles)
+    if feedback:
+        for message in feedback:
+            print(message)  
+    else:
+        print("Exercise is done correct!")
+
+# Simulation for testinf
+current_angles_pushup = {
+    'shoulder_left': 65,
+    'shoulder_right': 65,
+    'elbow_left': 45,  
+    'elbow_right': 25,
+    'hip_left': 155,
+    'hip_right': 155,
+    'knee_left': 165,
+    'knee_right': 165
+}
+
+# Feedback on the angle for push ups 
+give_feedback(push_up, current_angles_pushup)
+
+# Simulation example, needs works
+current_angles_squat = {
+    'hip_left': 80,
+    'hip_right': 85,
+    'knee_left': 125,  
+    'knee_right': 95
+}
+
+# Feedback on the angle or similar needs work
+give_feedback(squat, current_angles_squat)
